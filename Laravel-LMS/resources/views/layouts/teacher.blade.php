@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
   <!-- Custom CSS -->
-   <link rel="stylesheet" href="../assets/css/layout.css" />
+  <link rel="stylesheet" href="{{ asset('assets/css/layout.css') }}" />
 </head>
 <body>
 
@@ -31,17 +31,23 @@
       <a href="#">Profile</a>
       <a href="#">Settings</a>
       <hr>
-      <a href="#" class="logout">Logout</a>
+
+      <!-- LOGOUT (TOPBAR) -->
+      <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="logout-btn">
+          Logout
+        </button>
+      </form>
     </div>
   </div>
 </header>
 
 <!-- SIDEBAR -->
-
-  <aside id="sidebar" class="sidebar">
+<aside id="sidebar" class="sidebar">
 
   <!-- DASHBOARD -->
-  <a href="dashboard.html" class="sidebar-link">
+  <a href="{{ route('teacher.dashboard') }}" class="sidebar-link">
     <i class="bi bi-speedometer2"></i>
     Dashboard
   </a>
@@ -57,11 +63,11 @@
     </button>
 
     <div class="sidebar-submenu">
-      <a href="courses.html">All Courses</a>
+      <a href="#">All Courses</a>
     </div>
   </div>
 
-  <!-- COURSE MANAGEMENT (CONTEXTUAL) -->
+  <!-- MANAGE COURSE -->
   <div class="sidebar-group">
     <button class="sidebar-toggle">
       <span>
@@ -72,10 +78,10 @@
     </button>
 
     <div class="sidebar-submenu">
-      <a href="course-content.html">Course Content</a>
-      <a href="assignments.html">Assignments</a>
-      <a href="students.html">Students</a>
-      <a href="analytics.html">Analytics</a>
+      <a href="#">Course Content</a>
+      <a href="#">Assignments</a>
+      <a href="#">Students</a>
+      <a href="#">Analytics</a>
     </div>
   </div>
 
@@ -90,42 +96,43 @@
     </button>
 
     <div class="sidebar-submenu">
-      <a href="submissions-pending.html">Pending Review</a>
-      <a href="submissions-reviewed.html">Reviewed</a>
+      <a href="#">Pending Review</a>
+      <a href="#">Reviewed</a>
     </div>
   </div>
 
   <!-- ENROLLMENTS -->
-  <a href="enrollments.html" class="sidebar-link">
+  <a href="#" class="sidebar-link">
     <i class="bi bi-people"></i>
     Enrollments
   </a>
 
   <!-- STUDENT INSIGHT -->
-  <a href="student-insight.html" class="sidebar-link">
+  <a href="#" class="sidebar-link">
     <i class="bi bi-bar-chart-line"></i>
     Student Insight
   </a>
 
-  <!-- LOGOUT -->
-  <a href="#" class="sidebar-link logout">
-    <i class="bi bi-box-arrow-right"></i>
-    Logout
-  </a>
+  <!-- LOGOUT (SIDEBAR) -->
+  <form method="POST" action="{{ route('logout') }}" class="sidebar-logout-form">
+    @csrf
+    <button type="submit" class="sidebar-link logout-btn">
+      <i class="bi bi-box-arrow-right"></i>
+      Logout
+    </button>
+  </form>
 
 </aside>
-
 
 <!-- OVERLAY -->
 <div id="overlay"></div>
 
 <!-- MAIN CONTENT -->
 <main class="content">
-  <h1>Teacher Dashboard</h1>
-  <p>Select an option from the menu.</p>
+    @yield('content')
 </main>
 
 <!-- JS -->
-<script src="../assets/js/layout.js"></script>
+<script src="{{ asset('assets/js/layout.js') }}"></script>
 </body>
 </html>

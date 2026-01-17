@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
   <!-- Custom CSS -->
-   <link rel="stylesheet" href="../assets/css/layout.css" />
+  <link rel="stylesheet" href="{{ asset('assets/css/layout.css') }}" />
 </head>
 <body>
 
@@ -31,73 +31,77 @@
       <a href="#">Profile</a>
       <a href="#">Settings</a>
       <hr>
-      <a href="#" class="logout">Logout</a>
+      <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button class="logout" style="background:none;border:none;width:100%;text-align:left;">
+          Logout
+        </button>
+      </form>
     </div>
   </div>
 </header>
 
 <!-- SIDEBAR -->
 <aside id="sidebar" class="sidebar">
-  <h3 class="sidebar-title"></h3>
 
-    <!-- DASHBOARD -->
-    <a href="dashboard.html" class="sidebar-link">
-      <i class="bi bi-speedometer2"></i>
-      Dashboard
-    </a>
+  <a href="{{ route('teacher.dashboard') }}" class="sidebar-link">
+    <i class="bi bi-speedometer2"></i>
+    Dashboard
+  </a>
 
-    <!-- MY COURSES GROUP -->
-    <div class="sidebar-group">
-      <button class="sidebar-toggle">
-        <span>
-          <i class="bi bi-journal-bookmark"></i>
-          My Courses
-        </span>
-        <i class="bi bi-chevron-down"></i>
-      </button>
-
-      <div class="sidebar-submenu">
-        <a href="courses.html">My Courses</a>
-        <a href="course-content.html">Course Content</a>
-        <a href="assignments.html">Assignments</a>
-      </div>
+  <div class="sidebar-group">
+    <button class="sidebar-toggle">
+      <span>
+        <i class="bi bi-journal-bookmark"></i>
+        My Courses
+      </span>
+      <i class="bi bi-chevron-down"></i>
+    </button>
+    <div class="sidebar-submenu">
+      <a href="#">All Courses</a>
     </div>
-
-    <!-- STUDENT SUBMISSIONS GROUP -->
-    <div class="sidebar-group">
-      <button class="sidebar-toggle">
-        <span>
-          <i class="bi bi-inbox"></i>
-          Student Submissions
-        </span>
-        <i class="bi bi-chevron-down"></i>
-      </button>
-
-      <div class="sidebar-submenu">
-        <a href="submissions-pending.html">Pending Review</a>
-        <a href="submissions-reviewed.html">Reviewed</a>
-      </div>
-    </div>
-
-    <!-- ENROLLMENTS -->
-    <a href="enrollments.html" class="sidebar-link">
-      <i class="bi bi-people"></i>
-      Enrollments
-    </a>
-
-    <!-- STUDENT INSIGHT -->
-    <a href="student-insight.html" class="sidebar-link">
-      <i class="bi bi-bar-chart-line"></i>
-      Student Insight
-    </a>
-
-    <!-- LOGOUT -->
-    <a href="../login.html" class="sidebar-link logout">
-      <i class="bi bi-box-arrow-right"></i>
-      Logout
-    </a>
-
   </div>
+
+  <div class="sidebar-group">
+    <button class="sidebar-toggle">
+      <span>
+        <i class="bi bi-folder2-open"></i>
+        Manage Course
+      </span>
+      <i class="bi bi-chevron-down"></i>
+    </button>
+    <div class="sidebar-submenu">
+      <a href="#">Course Content</a>
+      <a href="#">Assignments</a>
+      <a href="#">Students</a>
+      <a href="#">Analytics</a>
+    </div>
+  </div>
+
+  <div class="sidebar-group">
+    <button class="sidebar-toggle">
+      <span>
+        <i class="bi bi-inbox"></i>
+        Submissions
+      </span>
+      <i class="bi bi-chevron-down"></i>
+    </button>
+    <div class="sidebar-submenu">
+      <a href="#">Pending Review</a>
+      <a href="#">Reviewed</a>
+    </div>
+  </div>
+
+  <a href="#" class="sidebar-link">
+    <i class="bi bi-people"></i>
+    Enrollments
+  </a>
+
+  <a href="#" class="sidebar-link">
+    <i class="bi bi-bar-chart-line"></i>
+    Student Insight
+  </a>
+
 </aside>
 
 <!-- OVERLAY -->
@@ -105,11 +109,9 @@
 
 <!-- MAIN CONTENT -->
 <main class="content">
-  <h1>Teacher Dashboard</h1>
-  <p>Select an option from the menu.</p>
+  @yield('content')
 </main>
 
-<!-- JS -->
-<script src="../assets/js/layout.js"></script>
+<script src="{{ asset('assets/js/layout.js') }}"></script>
 </body>
 </html>
