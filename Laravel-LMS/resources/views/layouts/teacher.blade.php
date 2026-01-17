@@ -37,68 +37,84 @@
 </header>
 
 <!-- SIDEBAR -->
-<aside id="sidebar" class="sidebar">
-  <h3 class="sidebar-title"></h3>
 
-    <!-- DASHBOARD -->
-    <a href="dashboard.html" class="sidebar-link">
-      <i class="bi bi-speedometer2"></i>
-      Dashboard
-    </a>
+  <aside id="sidebar" class="sidebar">
 
-    <!-- MY COURSES GROUP -->
-    <div class="sidebar-group">
-      <button class="sidebar-toggle">
-        <span>
-          <i class="bi bi-journal-bookmark"></i>
-          My Courses
-        </span>
-        <i class="bi bi-chevron-down"></i>
-      </button>
+  <!-- DASHBOARD -->
+  <a href="dashboard.html" class="sidebar-link">
+    <i class="bi bi-speedometer2"></i>
+    Dashboard
+  </a>
 
-      <div class="sidebar-submenu">
-        <a href="courses.html">My Courses</a>
-        <a href="course-content.html">Course Content</a>
-        <a href="assignments.html">Assignments</a>
-      </div>
+  <!-- MY COURSES -->
+  <div class="sidebar-group">
+    <button class="sidebar-toggle">
+      <span>
+        <i class="bi bi-journal-bookmark"></i>
+        My Courses
+      </span>
+      <i class="bi bi-chevron-down"></i>
+    </button>
+
+    <div class="sidebar-submenu">
+      <a href="courses.html">All Courses</a>
     </div>
-
-    <!-- STUDENT SUBMISSIONS GROUP -->
-    <div class="sidebar-group">
-      <button class="sidebar-toggle">
-        <span>
-          <i class="bi bi-inbox"></i>
-          Student Submissions
-        </span>
-        <i class="bi bi-chevron-down"></i>
-      </button>
-
-      <div class="sidebar-submenu">
-        <a href="submissions-pending.html">Pending Review</a>
-        <a href="submissions-reviewed.html">Reviewed</a>
-      </div>
-    </div>
-
-    <!-- ENROLLMENTS -->
-    <a href="enrollments.html" class="sidebar-link">
-      <i class="bi bi-people"></i>
-      Enrollments
-    </a>
-
-    <!-- STUDENT INSIGHT -->
-    <a href="student-insight.html" class="sidebar-link">
-      <i class="bi bi-bar-chart-line"></i>
-      Student Insight
-    </a>
-
-    <!-- LOGOUT -->
-    <a href="../login.html" class="sidebar-link logout">
-      <i class="bi bi-box-arrow-right"></i>
-      Logout
-    </a>
-
   </div>
+
+  <!-- COURSE MANAGEMENT (CONTEXTUAL) -->
+  <div class="sidebar-group">
+    <button class="sidebar-toggle">
+      <span>
+        <i class="bi bi-folder2-open"></i>
+        Manage Course
+      </span>
+      <i class="bi bi-chevron-down"></i>
+    </button>
+
+    <div class="sidebar-submenu">
+      <a href="course-content.html">Course Content</a>
+      <a href="assignments.html">Assignments</a>
+      <a href="students.html">Students</a>
+      <a href="analytics.html">Analytics</a>
+    </div>
+  </div>
+
+  <!-- SUBMISSIONS -->
+  <div class="sidebar-group">
+    <button class="sidebar-toggle">
+      <span>
+        <i class="bi bi-inbox"></i>
+        Submissions
+      </span>
+      <i class="bi bi-chevron-down"></i>
+    </button>
+
+    <div class="sidebar-submenu">
+      <a href="submissions-pending.html">Pending Review</a>
+      <a href="submissions-reviewed.html">Reviewed</a>
+    </div>
+  </div>
+
+  <!-- ENROLLMENTS -->
+  <a href="enrollments.html" class="sidebar-link">
+    <i class="bi bi-people"></i>
+    Enrollments
+  </a>
+
+  <!-- STUDENT INSIGHT -->
+  <a href="student-insight.html" class="sidebar-link">
+    <i class="bi bi-bar-chart-line"></i>
+    Student Insight
+  </a>
+
+  <!-- LOGOUT -->
+  <a href="#" class="sidebar-link logout">
+    <i class="bi bi-box-arrow-right"></i>
+    Logout
+  </a>
+
 </aside>
+
 
 <!-- OVERLAY -->
 <div id="overlay"></div>
