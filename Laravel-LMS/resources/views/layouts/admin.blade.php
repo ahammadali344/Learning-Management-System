@@ -41,7 +41,7 @@
   <h3 class="sidebar-title"></h3>
 
       <!-- DASHBOARD -->
-    <a href="dashboard.html" class="sidebar-link">
+    <a href="{{ route('admin.dashboard') }}" class="sidebar-link">
     <i class="bi bi-speedometer2"></i>
     <span>Dashboard</span>
     </a>
@@ -159,10 +159,10 @@
 <!-- MAIN CONTENT -->
 <main class="content">
   <h1>Teacher Dashboard</h1>
-  <p>Select an option from the menu.</p>
+  @yield('content')
 </main>
 
 <!-- JS -->
-<script src="../assets/js/layout.js"></script>
+<script src="{{ asset('assets/js/layout.js') }}"></script>
 </body>
 </html>
