@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Forum | LMS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    .post {
+      border: 1px solid #dee2e6;
+      transition: all 0.3s;
+    }
+
+    .post:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-category {
+      display: inline-block;
+      background: #0d6efd;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85em;
+      margin-right: 10px;
+    }
+
+    .post-meta {
+      font-size: 0.9em;
+      color: #6c757d;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95em;
+      color: #6c757d;
+      transition: color 0.3s;
+      padding: 0;
+      margin-right: 15px;
+    }
+
+    .action-btn:hover {
+      color: #0d6efd;
+    }
+
+    .action-btn.liked {
+      color: #dc3545;
+    }
+
+    .comments-list {
+      margin-top: 15px;
+      display: none;
+    }
+
+    .comments-list.show {
+      display: block;
+    }
+
+    .comment {
+      background: #f8f9fa;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      border-left: 3px solid #0d6efd;
+    }
+
+    .comment-author {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .comment-time {
+      font-size: 0.85em;
+      color: #6c757d;
+    }
+
+    .comment-text {
+      color: #555;
+      font-size: 0.95em;
+      line-height: 1.5;
+      margin-top: 5px;
+    }
+
+    .add-comment-form {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 6px;
+    }
+
+    .add-comment-form.show {
+      display: block;
+    }
+
+    .filter-section {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      border: 2px solid #0d6efd;
+      background: white;
+      color: #0d6efd;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: #0d6efd;
+      color: white;
+    }
+
+    .no-posts {
+      text-align: center;
+      padding: 30px;
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+
+    <!-- ================= STUDENT SIDEBAR ================= -->
+    <aside class="col-md-2 bg-dark text-white min-vh-100 p-3">
+
+      <div class="text-center mb-4">
+        <h5 class="fw-bold mb-0">LMS Student</h5>
+        <small class="text-secondary">Learning Panel</small>
+      </div>
+
+      <ul class="nav flex-column gap-1">
+
+        <!-- Dashboard -->
+        <li class="nav-item">
+          <a class="nav-link text-white rounded"
+             href="./dashboard.html">
+            <i class="bi bi-speedometer2 me-2"></i>Dashboard
+          </a>
+        </li>
+
+        <!-- Browse Courses -->
+        <li class="nav-item">
+          <a class="nav-link text-white rounded"
+             href="./browse-courses.html">
+            <i class="bi bi-search me-2"></i>Browse Courses
+          </a>
+        </li>
+
+        <!-- My Courses -->
+        <li class="nav-item">
+          <a class="nav-link text-white rounded"
+             href="./courses.html">
+            <i class="bi bi-journal-bookmark me-2"></i>My Courses
+          </a>
+        </li>
+
+        <!-- Lessons -->
+        <li class="nav-item">
+          <a class="nav-link text-white rounded"
+             href="./lessons.html">
+            <i class="bi bi-play-circle me-2"></i>Lessons
+          </a>
+        </li>
+
+        <!-- Projects -->
+        <li class="nav-item">
+          <a class="nav-link text-white rounded"
+             href="./projects.html">
+            <i class="bi bi-upload me-2"></i>Projects
+          </a>
+        </li>
+
+        <!-- Submissions -->
+        <li class="nav-item">
+          <a class="nav-link text-white rounded"
+             href="./submissions.html">
+            <i class="bi bi-file-earmark-text me-2"></i>My Submissions
+          </a>
+        </li>
+
+        <!-- Forum -->
+        <li class="nav-item">
+          <a class="nav-link text-white fw-semibold active bg-secondary rounded"
+             href="./forum.html">
+            <i class="bi bi-chat-dots me-2"></i>Forum
+          </a>
+        </li>
+
+        <hr class="text-secondary my-3">
+
+        <!-- Logout -->
+        <li class="nav-item">
+          <a class="nav-link text-white rounded"
+             href="../auth/login.html">
+            <i class="bi bi-box-arrow-right me-2"></i>Logout
+          </a>
+        </li>
+
+      </ul>
+    </aside>
+    <!-- ================= END SIDEBAR ================= -->
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="col-md-10 p-4 bg-light">
+
+      <div class="mb-4">
+        <h3 class="fw-bold mb-1"><i class="bi bi-chat-dots me-2"></i>Student Forum</h3>
+        <p class="text-muted mb-0">
+          Share ideas, ask questions, and discuss course and campus topics
+        </p>
+      </div>
+      <!-- Create Post Card -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title fw-semibold mb-3">Create a New Post</h5>
+          <form id="createPostForm">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="postTitle" class="form-label">Post Title</label>
+                <input type="text" class="form-control" id="postTitle" placeholder="Enter post title" required>
+              </div>
+              <div class="col-md-6">
+                <label for="postCategory" class="form-label">Category</label>
+                <select class="form-select" id="postCategory" required>
+                  <option value="">Select a category</option>
+                  <option value="Course Related">Course Related</option>
+                  <option value="Campus News">Campus News</option>
+                  <option value="Doubts & Questions">Doubts & Questions</option>
+                  <option value="General Discussion">General Discussion</option>
+                  <option value="Resources">Resources</option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="postContent" class="form-label">Post Content</label>
+              <textarea class="form-control" id="postContent" rows="4" placeholder="Write your post here..." required></textarea>
+            </div>
+            <div class="d-flex gap-2">
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-send me-2"></i>Post
+              </button>
+              <button type="reset" class="btn btn-secondary">
+                <i class="bi bi-arrow-counterclockwise me-2"></i>Clear
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Filter Section -->
+      <div class="filter-section mb-4">
+        <button class="filter-btn active" data-filter="all">All Posts</button>
+        <button class="filter-btn" data-filter="Course Related">Course Related</button>
+        <button class="filter-btn" data-filter="Campus News">Campus News</button>
+        <button class="filter-btn" data-filter="Doubts & Questions">Doubts & Questions</button>
+        <button class="filter-btn" data-filter="General Discussion">General Discussion</button>
+        <button class="filter-btn" data-filter="Resources">Resources</button>
+      </div>
+
+      <!-- Posts Section -->
+      <div id="postsArea"></div>
+
+    </main>
+    <!-- ================= END MAIN CONTENT ================= -->
+
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Mock data for demonstration
+    let posts = [
+        {
+            id: 1,
+            title: "Best practices for database design?",
+            category: "Course Related",
+            author: "Ahmed Khan",
+            content: "I'm struggling with database normalization. Can anyone explain it in simpler terms? What are the best practices to follow?",
+            timestamp: "2 hours ago",
+            likes: 5,
+            liked: false,
+            comments: [
+                {
+                    id: 1,
+                    author: "Fatima Ali",
+                    content: "Database normalization helps reduce data redundancy. Check out the official documentation!",
+                    timestamp: "1 hour ago"
+                }
+            ]
+        },
+        {
+            id: 2,
+            title: "Campus fest announcement",
+            category: "Campus News",
+            author: "Sara Ahmed",
+            content: "The annual campus fest is happening next month! There will be various competitions, performances, and food stalls. Everyone is welcome to participate.",
+            timestamp: "5 hours ago",
+            likes: 12,
+            liked: false,
+            comments: []
+        }
+    ];
+
+    let currentFilter = "all";
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+        renderPosts();
+        setupEventListeners();
+    });
+
+    function setupEventListeners() {
+        // Create post form
+        document.getElementById('createPostForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            addNewPost();
+        });
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.dataset.filter;
+                renderPosts();
+            });
+        });
+    }
+
+    function addNewPost() {
+        const title = document.getElementById('postTitle').value;
+        const category = document.getElementById('postCategory').value;
+        const content = document.getElementById('postContent').value;
+
+        const newPost = {
+            id: posts.length + 1,
+            title: title,
+            category: category,
+            author: "You",
+            content: content,
+            timestamp: "just now",
+            likes: 0,
+            liked: false,
+            comments: []
+        };
+
+        posts.unshift(newPost);
+        document.getElementById('createPostForm').reset();
+        renderPosts();
+        alert('Post created successfully!');
+    }
+
+    function renderPosts() {
+        const postsArea = document.getElementById('postsArea');
+        postsArea.innerHTML = '';
+
+        const filteredPosts = currentFilter === 'all' 
+            ? posts 
+            : posts.filter(post => post.category === currentFilter);
+
+        if (filteredPosts.length === 0) {
+            postsArea.innerHTML = '<div class="no-posts">No posts found in this category.</div>';
+            return;
+        }
+
+        filteredPosts.forEach(post => {
+            postsArea.innerHTML += createPostElement(post);
+        });
+
+        // Attach event listeners to dynamic elements
+        document.querySelectorAll('.action-btn.like-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                toggleLike(this);
+            });
+        });
+
+        document.querySelectorAll('.comments-toggle').forEach(btn => {
+            btn.addEventListener('click', function() {
+                toggleComments(this);
+            });
+        });
+
+        document.querySelectorAll('.comment-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                toggleCommentForm(this);
+            });
+        });
+
+        document.querySelectorAll('.btn-comment').forEach(btn => {
+            btn.addEventListener('click', function() {
+                submitComment(this);
+            });
+        });
+
+        document.querySelectorAll('.btn-cancel').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.closest('.add-comment-form').classList.remove('show');
+            });
+        });
+    }
+
+    function createPostElement(post) {
+        return `
+            <div class="card border-0 shadow-sm mb-3 post" data-post-id="${post.id}">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold">${post.title}</h5>
+                    <p class="post-meta mb-2">
+                        <span class="post-category">${post.category}</span>
+                        <span>By <strong>${post.author}</strong> • ${post.timestamp}</span>
+                    </p>
+                    <p class="card-text text-muted mb-3">${post.content}</p>
+                    
+                    <div class="d-flex gap-3 mb-3 border-top pt-3">
+                        <button class="action-btn like-btn ${post.liked ? 'liked' : ''}" data-post-id="${post.id}">
+                            <i class="bi bi-heart${post.liked ? '-fill' : ''} me-1"></i>
+                            <span class="like-count">${post.likes} Likes</span>
+                        </button>
+                        <button class="action-btn" onclick="this.closest('.card').querySelector('.comments-toggle').click()">
+                            <i class="bi bi-chat-dots me-1"></i>
+                            <span>${post.comments.length} Comments</span>
+                        </button>
+                    </div>
+
+                    <div class="comments-section">
+                        <button class="comments-toggle btn btn-sm btn-light w-100 text-start">
+                            <i class="bi ${post.comments.length > 0 ? 'bi-chevron-down' : 'bi-chevron-right'} me-2"></i>
+                            View Comments (${post.comments.length})
+                        </button>
+                        <div class="comments-list ${post.comments.length > 0 ? 'show' : ''}">
+                            ${post.comments.map((comment, idx) => `
+                                <div class="comment">
+                                    <div class="comment-header d-flex justify-content-between">
+                                        <span class="comment-author">${comment.author}</span>
+                                        <span class="comment-time">${comment.timestamp}</span>
+                                    </div>
+                                    <div class="comment-text">${comment.content}</div>
+                                </div>
+                            `).join('')}
+                            <div class="add-comment-form">
+                                <textarea class="form-control comment-input mb-2" placeholder="Write a comment..."></textarea>
+                                <div class="d-flex gap-2">
+                                    <button class="btn-comment btn btn-sm btn-primary">Post Comment</button>
+                                    <button class="btn-cancel btn btn-sm btn-secondary">Cancel</button>
+                                </div>
+                            </div>
+                            <button class="comment-btn btn btn-sm btn-light w-100 mt-2">
+                                <i class="bi bi-chat-left-text me-1"></i> Add Comment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function toggleLike(button) {
+        const postId = parseInt(button.dataset.postId);
+        const post = posts.find(p => p.id === postId);
+        
+        if (post) {
+            post.liked = !post.liked;
+            post.likes += post.liked ? 1 : -1;
+            button.classList.toggle('liked');
+            button.querySelector('.like-count').textContent = `${post.likes} Likes`;
+            const icon = button.querySelector('i');
+            if (post.liked) {
+                icon.classList.remove('bi-heart');
+                icon.classList.add('bi-heart-fill');
+            } else {
+                icon.classList.add('bi-heart');
+                icon.classList.remove('bi-heart-fill');
+            }
+        }
+    }
+
+    function toggleComments(button) {
+        const commentsList = button.nextElementSibling;
+        commentsList.classList.toggle('show');
+        const icon = button.querySelector('i');
+        if (commentsList.classList.contains('show')) {
+            icon.classList.remove('bi-chevron-right');
+            icon.classList.add('bi-chevron-down');
+        } else {
+            icon.classList.add('bi-chevron-right');
+            icon.classList.remove('bi-chevron-down');
+        }
+    }
+
+    function toggleCommentForm(button) {
+        const form = button.previousElementSibling;
+        form.classList.toggle('show');
+    }
+
+    function submitComment(button) {
+        const form = button.closest('.add-comment-form');
+        const textarea = form.querySelector('.comment-input');
+        const commentText = textarea.value.trim();
+
+        if (commentText) {
+            const post = posts.find(p => p.id === parseInt(form.closest('.post').dataset.postId));
+            if (post) {
+                post.comments.push({
+                    id: post.comments.length + 1,
+                    author: "You",
+                    content: commentText,
+                    timestamp: "just now"
+                });
+                renderPosts();
+            }
+        } else {
+            alert('Please write a comment');
+        }
+    }
+</script>
+</body>
+</html>
