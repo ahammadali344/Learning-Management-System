@@ -86,10 +86,11 @@
   </div>
 
   <!-- AVAILABLE COURSES -->
-  <a href="#" class="sidebar-link">
+ <a href="{{ route('student.available-courses') }}" class="sidebar-link">
     <i class="bi bi-search"></i>
     Available Courses
-  </a>
+</a>
+
 
   <!-- LOGOUT (SIDEBAR) -->
   <form method="POST" action="{{ route('logout') }}">

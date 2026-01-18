@@ -25,3 +25,14 @@ Route::get('/student/dashboard',
     [\App\Http\Controllers\Student\StudentDashboardController::class, 'index']
 )->name('student.dashboard');
 
+/*Student Course Controller */
+use App\Http\Controllers\Student\AvailableCourseController;
+use App\Http\Controllers\Student\EnrollmentController;
+
+Route::middleware(['auth'])->prefix('student')->name('student.')->group(function () {
+    Route::get('/available-courses', [AvailableCourseController::class, 'index'])
+        ->name('available-courses');
+
+    Route::post('/enroll/{course}', [EnrollmentController::class, 'store'])
+        ->name('enroll');
+});
