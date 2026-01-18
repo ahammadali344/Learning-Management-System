@@ -20,3 +20,8 @@ use App\Http\Controllers\Teacher\TeacherDashboardController;
 Route::get('/teacher/dashboard', [TeacherDashboardController::class, 'index'])
     ->name('teacher.dashboard');
 
+/* Student Dashboard Route */
+Route::get('/student/dashboard',
+    [\App\Http\Controllers\Student\StudentDashboardController::class, 'index']
+)->name('student.dashboard');
+

@@ -6,19 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Submission extends Model
 {
-    public function student() {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+    protected $fillable = [
+        'assignment_id',
+        'student_id',
+        'status',
+        'file_path',
+        'grade',
+    ];
 
-    public function assignment() {
+    public function assignment()
+    {
         return $this->belongsTo(Assignment::class);
-    }
-
-    public function files() {
-        return $this->hasMany(SubmissionFile::class);
-    }
-
-    public function review() {
-        return $this->hasOne(Review::class);
     }
 }
