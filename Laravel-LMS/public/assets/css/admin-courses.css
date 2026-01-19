@@ -292,41 +292,46 @@
 }
 
 
-
-/* ===============================
-   Pagination Info – Premium
-================================ */
+/* ---------- PAGINATION ---------- */
 
 .pagination-bar {
     display: flex;
-    justify-content: flex-end;
-    margin-top: 16px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 18px;
+    padding: 14px 18px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,.05);
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .pagination-info {
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    padding: 8px 14px;
-    font-size: 13px;
+    font-size: 14px;
     color: #6b7280;
-    user-select: none;
+    font-weight: 500;
 }
 
-.pagination-info span {
-    font-weight: 600;
+.pagination-links a,
+.pagination-links span {
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: #f1f5f9;
     color: #111827;
+    font-weight: 600;
+    text-decoration: none;
 }
 
-/* Mobile */
+.pagination-links a:hover {
+    background: #e5e7eb;
+}
+
+/* Mobile fix */
 @media (max-width: 640px) {
     .pagination-bar {
-        justify-content: center;
-        margin-top: 12px;
-    }
-
-    .pagination-info {
-        font-size: 12px;
-        padding: 6px 12px;
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
     }
 }
