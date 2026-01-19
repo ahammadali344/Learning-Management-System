@@ -80,12 +80,23 @@
 </table>
 </div>
 
-<div class="pagination-wrap">
-    {{ $courses->links() }}
+
+<div class="pagination-bar">
+    <div class="pagination-info">
+        Showing
+        <span>{{ $courses->firstItem() }}</span>
+        –
+        <span>{{ $courses->lastItem() }}</span>
+        of
+        <span>{{ $courses->total() }}</span>
+        courses
+    </div>
 </div>
 
 
-
+<div class="pagination-wrap">
+    {{ $courses->links() }}
+</div>
 
 
 @endsection

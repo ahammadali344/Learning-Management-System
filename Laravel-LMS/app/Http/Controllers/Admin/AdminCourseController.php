@@ -57,4 +57,14 @@ class AdminCourseController extends Controller
             ->route('admin.courses.index')
             ->with('success', 'Course created successfully');
     }
+
+    public function edit(Course $course)
+{
+    $teachers = User::whereHas('roles', fn ($q) =>
+        $q->where('name', 'teacher')
+    )->get();
+
+    return view('admin.courses.edit', compact('course', 'teachers'));
+}
+
 }
