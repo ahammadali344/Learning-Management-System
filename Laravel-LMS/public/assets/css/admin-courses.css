@@ -1,0 +1,90 @@
+/* ===== Admin Courses Page ===== */
+
+.admin-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.admin-page-header h1 {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: #4f46e5;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background: #4338ca;
+}
+
+/* Table */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.admin-table th {
+    text-align: left;
+    padding: 14px;
+    background: #f8fafc;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.admin-table td {
+    padding: 14px;
+    border-top: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+.admin-table tr:hover {
+    background: #f9fafb;
+}
+
+/* Status badges */
+.badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.badge-published {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.badge-draft {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Action buttons */
+.action-link {
+    color: #4f46e5;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.action-link:hover {
+    text-decoration: underline;
+}
+
+/* Empty state */
+.empty-state {
+    padding: 40px;
+    text-align: center;
+    color: #6b7280;
+}

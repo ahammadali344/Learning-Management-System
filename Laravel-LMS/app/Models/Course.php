@@ -3,30 +3,39 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Course extends Model
 {
     protected $fillable = [
-        'title', 'description', 'teacher_id', 'status'
+        'title',
+        'slug',
+        'description',
+        'category_id',
+        'teacher_id',
+        'status'
     ];
 
-    public function teacher() {
+    protected static function booted()
+    {
+        static::creating(function ($course) {
+            $course->slug = Str::slug($course->title);
+        });
+    }
+
+    // ✅ FIXED HERE
+    public function category()
+    {
+        return $this->belongsTo(CourseCategory::class, 'category_id');
+    }
+
+    public function teacher()
+    {
         return $this->belongsTo(User::class, 'teacher_id');
     }
 
-    public function lessons() {
-        return $this->hasMany(Lesson::class);
-    }
-
-    public function assignments() {
-        return $this->hasMany(Assignment::class);
-    }
-
-    public function projects() {
-        return $this->hasMany(Project::class);
-    }
-
-    public function enrollments() {
+    public function enrollments()
+    {
         return $this->hasMany(Enrollment::class);
     }
 }

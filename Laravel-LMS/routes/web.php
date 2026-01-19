@@ -1,18 +1,24 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminCourseController;
+use App\Http\Controllers\Auth\LoginController;
 
-Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])
-     ->name('admin.dashboard');
-
-     use App\Http\Controllers\Auth\LoginController;
-
-
- /*Create Login Routes */
-
+/* Login Routes */
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+/* Admin Dashboard */
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])
+        ->name('dashboard');
+
+    Route::resource('courses', AdminCourseController::class);
+
+});
+
 
 /* Teacher Dashboard Route */
 use App\Http\Controllers\Teacher\TeacherDashboardController;

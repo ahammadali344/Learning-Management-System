@@ -1,33 +1,21 @@
-<?php
+Schema::create('courses', function (Blueprint $table) {
+    $table->id();
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+    $table->string('title');
+    $table->string('slug')->unique();
+    $table->text('description')->nullable();
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
-    {
-       Schema::create('courses', function (Blueprint $table) {
-        $table->id();
-        $table->string('title');
-        $table->text('description')->nullable();
-        $table->foreignId('teacher_id')->constrained('users');
-        $table->enum('status', ['draft','published','archived'])->default('draft');
-        $table->timestamps();
-        $table->softDeletes();
-    });
+    $table->foreignId('category_id')
+          ->constrained()
+          ->cascadeOnDelete();
 
-    }
+    $table->foreignId('teacher_id')
+          ->nullable()
+          ->constrained('users')
+          ->nullOnDelete();
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('courses');
-    }
-};
+    $table->enum('status', ['draft', 'published', 'archived'])
+          ->default('draft');
+
+    $table->timestamps();
+});
