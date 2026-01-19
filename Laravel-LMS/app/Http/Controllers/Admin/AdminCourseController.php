@@ -27,19 +27,34 @@ class AdminCourseController extends Controller
 
         $courses = $query->paginate(5)->withQueryString();
 
-        $teachers = User::whereHas('roles', function ($q) {
-            $q->where('name', 'teacher');
-        })->get();
+        $teachers = User::whereHas('roles', fn ($q) =>
+            $q->where('name', 'teacher')
+        )->get();
 
         return view('admin.courses.index', compact('courses', 'teachers'));
     }
 
     public function create()
     {
-        $teachers = User::whereHas('roles', function ($q) {
-            $q->where('name', 'teacher');
-        })->get();
+        $teachers = User::whereHas('roles', fn ($q) =>
+            $q->where('name', 'teacher')
+        )->get();
 
         return view('admin.courses.create', compact('teachers'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title'      => 'required|string|max:255',
+            'teacher_id' => 'required|exists:users,id',
+            'status'     => 'required|in:draft,published',
+        ]);
+
+        Course::create($request->only('title', 'teacher_id', 'status'));
+
+        return redirect()
+            ->route('admin.courses.index')
+            ->with('success', 'Course created successfully');
     }
 }

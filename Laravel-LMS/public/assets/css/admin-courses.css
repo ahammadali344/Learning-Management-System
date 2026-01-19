@@ -1,109 +1,267 @@
+/* ---------- PAGE HEADER ---------- */
 .page-header {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
 }
 
-.subtitle {
-  color:#6b7280;
+/* ---------- FILTERS ---------- */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
-.filter-bar {
-  display:flex;
-  gap:12px;
-  margin-bottom:20px;
+.filters input,
+.filters select,
+.filters button {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
 }
 
-.filter-bar input,
-.filter-bar select {
-  padding:10px 12px;
-  border:1px solid #d1d5db;
-  border-radius:8px;
-}
-
+/* ---------- TABLE CARD ---------- */
 .table-card {
-  background:#fff;
-  border-radius:14px;
-  padding:16px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.06);
 }
 
-table {
-  width:100%;
-  border-collapse:collapse;
+/* ---------- TABLE ---------- */
+.course-table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-th, td {
-  padding:14px;
-  border-bottom:1px solid #e5e7eb;
+.course-table th {
+    text-align: center;
+    font-weight: 700;
 }
 
-.text-right {
-  text-align:right;
+.course-table td {
+    padding: 14px;
+    border-bottom: 1px solid #f1f5f9;
+    text-align: center;
+    vertical-align: middle;
 }
 
+.course-table tr:hover {
+    background: #f9fafb;
+}
+
+/* ---------- STATUS ---------- */
 .status {
-  padding:6px 12px;
-  border-radius:999px;
-  font-size:13px;
-  font-weight:600;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
 }
 
 .status.published {
-  background:#dcfce7;
-  color:#166534;
+    background: #dcfce7;
+    color: #166534;
 }
 
 .status.draft {
-  background:#fef3c7;
-  color:#92400e;
+    background: #fef3c7;
+    color: #92400e;
 }
 
-/* ACTION MENU */
+/* ---------- ACTIONS (DESKTOP) ---------- */
+.action-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.action-btn:hover {
+    background: #f1f5f9;
+}
+
 .action-menu {
-  position:relative;
-  display:inline-block;
+    position: absolute;
+    right: 0;
+    top: 36px;
+    background: #fff;
+    border-radius: 10px;
+    min-width: 160px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.15);
+    display: none;
+    z-index: 100;
 }
 
-.menu-btn {
-  background:none;
-  border:none;
-  font-size:20px;
-  cursor:pointer;
+.action-menu.show {
+    display: block;
 }
 
-.menu-dropdown {
-  display:none;
-  position:absolute;
-  right:0;
-  background:#fff;
-  border-radius:10px;
-  box-shadow:0 10px 25px rgba(0,0,0,.12);
-  min-width:160px;
-  z-index:10;
+.action-menu a,
+.action-menu button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 14px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    text-decoration: none;
+    color: #111827;
 }
 
-.menu-dropdown a,
-.menu-dropdown button {
-  display:block;
-  padding:10px 14px;
-  width:100%;
-  text-align:left;
-  border:none;
-  background:none;
-  cursor:pointer;
+.action-menu button {
+    color: #dc2626;
 }
 
-.menu-dropdown .danger {
-  color:#dc2626;
+.action-menu a:hover,
+.action-menu button:hover {
+    background: #f5f7fb;
 }
 
-.action-menu:hover .menu-dropdown {
-  display:block;
+/* ---------- INLINE ACTIONS (MOBILE) ---------- */
+.action-inline {
+    display: none;
+    gap: 10px;
+    justify-content: flex-end;
 }
 
-.pagination-wrapper {
-  margin-top:24px;
-  display:flex;
-  justify-content:flex-end;
+.action-inline a,
+.action-inline button {
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+}
+
+.action-inline .edit {
+    background: #eef2ff;
+    color: #4338ca;
+}
+
+.action-inline .delete {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+
+    .course-table thead {
+        display: none;
+    }
+
+    .course-table,
+    .course-table tbody,
+    .course-table tr {
+        display: block;
+        width: 100%;
+    }
+
+    .course-table tr {
+        background: #fff;
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    }
+
+    .course-table td {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border: none;
+        text-align: left;
+    }
+
+    .course-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #6b7280;
+    }
+
+    .action-wrapper {
+        display: none;
+    }
+
+    .action-inline {
+        display: flex;
+    }
+}
+
+/* ============================= */
+/* TABLE HEADER STYLE (PREMIUM) */
+/* ============================= */
+.course-table thead th {
+    background: #f8fafc;
+    color: #111827;
+    font-size: 14px;
+    letter-spacing: .3px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* ============================= */
+/* HEADER TEXT & BUTTON */
+/* ============================= */
+.page-header h1 {
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.page-header p {
+    margin-top: 4px;
+    color: #6b7280;
+}
+
+/* Button look (fix link-style issue) */
+.page-header .btn-primary {
+    background: #4f46e5;
+    color: #fff !important;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(79,70,229,.25);
+}
+
+.page-header .btn-primary:hover {
+    background: #4338ca;
+}
+
+/* ============================= */
+/* RESPONSIVE HEADER FIX */
+/* ============================= */
+@media (max-width: 768px) {
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .page-header h1 {
+        font-size: 24px;
+    }
+
+    .page-header p {
+        font-size: 14px;
+    }
+
+    .page-header .btn-primary {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
 }

@@ -1,56 +1,84 @@
 @extends('layouts.admin')
 
 @push('styles')
-<link rel="stylesheet" href="{{ asset('assets/css/admin-forms.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/admin-course-form.css') }}">
 @endpush
 
 @section('content')
 
-<div class="form-card">
-    <h1>Create New Course</h1>
+<div class="course-form-header">
+    <div>
+        <h1>Create New Course</h1>
+        <p>Fill in the details to publish a professional course</p>
+    </div>
+</div>
 
-    <form method="POST" action="{{ route('admin.courses.store') }}">
-        @csrf
+<div class="course-form-card">
+<form method="POST" action="{{ route('admin.courses.store') }}">
+@csrf
 
-        <div class="form-group">
-            <label>Course Title</label>
-            <input type="text" name="title" required>
-        </div>
+<div class="form-grid">
 
-        <div class="form-group">
-            <label>Description</label>
-            <textarea name="description"></textarea>
-        </div>
+    <!-- Course Title -->
+    <div class="form-group full">
+        <label>Course Title</label>
+        <input type="text" name="title" placeholder="e.g. Data Structures" required>
+    </div>
 
-        <div class="form-group">
-            <label>Assign Teacher</label>
-            <select name="teacher_id" required>
-                @foreach($teachers as $teacher)
-                    <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
-                @endforeach
-            </select>
-        </div>
+    <!-- Short Description -->
+    <div class="form-group full">
+        <label>Short Description</label>
+        <textarea name="description" rows="3"
+            placeholder="Brief overview of the course"></textarea>
+    </div>
 
-        <div class="form-group">
-            <label>Category</label>
-            <select name="category_id">
-                <option value="">— Optional —</option>
-            </select>
-        </div>
+    <!-- Teacher -->
+    <div class="form-group">
+        <label>Assign Teacher</label>
+        <select name="teacher_id" required>
+            <option value="">Select Teacher</option>
+            @foreach($teachers as $teacher)
+                <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
+            @endforeach
+        </select>
+    </div>
 
-        <div class="form-group">
-            <label>Status</label>
-            <select name="status">
-                <option value="draft">Draft</option>
-                <option value="published">Published</option>
-            </select>
-        </div>
+    <!-- Category (future ready) -->
+    <div class="form-group">
+        <label>Category</label>
+        <select name="category_id">
+            <option value="">General</option>
+        </select>
+    </div>
 
-        <div class="form-actions">
-            <a href="{{ route('admin.courses.index') }}" class="btn-secondary">Cancel</a>
-            <button class="btn-primary">Create Course</button>
-        </div>
-    </form>
+    <!-- Status -->
+    <div class="form-group">
+        <label>Status</label>
+        <select name="status">
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+        </select>
+    </div>
+
+    <!-- Visibility -->
+    <div class="form-group">
+        <label>Visibility</label>
+        <select>
+            <option>Public</option>
+            <option>Private</option>
+        </select>
+    </div>
+
+</div>
+
+<div class="form-footer">
+    <a href="{{ route('admin.courses.index') }}" class="btn-light">Cancel</a>
+    <button type="submit" class="btn-primary">
+        Create Course
+    </button>
+</div>
+
+</form>
 </div>
 
 @endsection
