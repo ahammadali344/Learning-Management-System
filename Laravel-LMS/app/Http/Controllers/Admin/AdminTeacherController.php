@@ -15,12 +15,6 @@ class AdminTeacherController extends Controller
         $teachers = User::whereHas('roles', fn ($q) =>
                 $q->where('name', 'teacher')
             )
-            ->when($request->search, function ($q) use ($request) {
-                $q->where(function ($q) use ($request) {
-                    $q->where('name', 'like', "%{$request->search}%")
-                      ->orWhere('email', 'like', "%{$request->search}%");
-                });
-            })
             ->latest()
             ->paginate(10);
 
@@ -31,29 +25,27 @@ class AdminTeacherController extends Controller
     {
         return view('admin.users.teachers.create');
     }
+public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|min:6|confirmed',
+    ]);
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed',
-        ]);
+    $teacher = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'status' => 'active',
+    ]);
 
-        $teacher = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
-            'status'   => 'active',
-        ]);
+    $teacher->roles()->attach(
+        Role::where('name', 'teacher')->first()->id
+    );
 
-        $teacherRole = Role::where('name', 'teacher')->firstOrFail();
-        $teacher->roles()->attach($teacherRole->id);
-
-        return redirect()
-            ->route('admin.users.teachers.index')
-            ->with('success', 'Teacher created successfully');
-    }
+    return redirect()->route('admin.users.teachers.index');
+}
 
     public function edit(User $user)
     {
