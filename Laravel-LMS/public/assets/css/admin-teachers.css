@@ -1,0 +1,355 @@
+/* Header */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.page-header p {
+    color: #6b7280;
+}
+
+/* Search */
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 999px;
+    padding: 6px 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.05);
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    padding: 6px 10px;
+    width: 220px;
+}
+
+.search-box button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* Header actions */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* Primary button */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    background: #4f46e5;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 10px 20px rgba(79,70,229,.25);
+    transition: all .2s ease;
+}
+
+.btn-primary:hover {
+    background: #4338ca;
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(79,70,229,.35);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header-actions {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-primary {
+        justify-content: center;
+    }
+}
+
+
+/* Card */
+.card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.08);
+    overflow-x: auto;
+}
+
+/* Table */
+.people-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.people-table th {
+    padding: 16px;
+    font-weight: 600;
+    color: #6b7280;
+    background: #f9fafb;
+    text-align: left;
+}
+
+.people-table th.text-right {
+    text-align: right;
+    padding-right: 24px;
+}
+
+.people-table td {
+    padding: 16px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.people-table tr:hover {
+    background: #f9fafb;
+}
+
+/* User */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-info img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
+
+/* Status */
+.status {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status.active {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status.blocked {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Actions */
+.actions {
+    display: inline-flex;
+    gap: 10px;
+}
+
+.icon-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    border: none;
+    background: #f8fafc;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .2s ease;
+    box-shadow: 0 6px 14px rgba(0,0,0,.08);
+}
+
+.icon-btn:hover {
+    transform: translateY(-2px);
+}
+
+.icon-btn.edit {
+    background: #eef2ff;
+    color: #4338ca;
+}
+
+.icon-btn.toggle {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+
+.icon-btn.danger {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* Utilities */
+.inline { display: inline; }
+.text-right { text-align: right; }
+
+.empty {
+    text-align: center;
+    padding: 40px;
+    color: #9ca3af;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .page-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+
+    .actions {
+        justify-content: flex-start;
+    }
+}
+
+
+
+/* =========================
+   MOBILE RESPONSIVE FIX
+========================= */
+@media (max-width: 768px) {
+
+    /* Hide table header */
+    .people-table thead {
+        display: none;
+    }
+
+    /* Table becomes block */
+    .people-table,
+    .people-table tbody,
+    .people-table tr,
+    .people-table td {
+        display: block;
+        width: 100%;
+    }
+
+    /* Each row becomes a card */
+    .people-table tr {
+        background: #ffffff;
+        margin-bottom: 16px;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0,0,0,.08);
+        padding: 16px;
+    }
+
+    /* Cells */
+    .people-table td {
+        border: none;
+        padding: 8px 0;
+    }
+
+    /* Label before data */
+    .people-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        color: #6b7280;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: .4px;
+    }
+
+    /* User info alignment */
+    .user-info {
+        align-items: center;
+    }
+
+    /* Status alignment */
+    .status {
+        display: inline-flex;
+    }
+
+    /* Actions centered */
+    .actions {
+        justify-content: flex-start;
+        margin-top: 8px;
+    }
+
+    /* Header stack */
+    .page-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: stretch;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .search-box input {
+        width: 100%;
+    }
+}
+
+
+/* Avatar */
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #eef2ff;
+    color: #4338ca;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+/* Email */
+.email {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* Actions column */
+.actions-col {
+    width: 200px;
+    text-align: right;
+}
+
+.actions {
+    display: inline-flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+/* Responsive table */
+@media (max-width: 768px) {
+    .people-table thead {
+        display: none;
+    }
+
+    .people-table tr {
+        display: block;
+        margin-bottom: 16px;
+        border-radius: 14px;
+        box-shadow: 0 12px 30px rgba(0,0,0,.08);
+        background: #fff;
+    }
+
+    .people-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px;
+    }
+
+    .people-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #6b7280;
+    }
+
+    .actions {
+        justify-content: flex-start;
+    }
+}

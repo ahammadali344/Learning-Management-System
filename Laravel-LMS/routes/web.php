@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminCourseController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminStudentController;
+use App\Http\Controllers\Admin\AdminTeacherController;
+
 
 /* Login Routes */
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -59,6 +61,31 @@ Route::middleware(['auth'])
     // Delete
     Route::delete('/students/{user}', [AdminStudentController::class, 'destroy'])
         ->name('students.destroy');
+
+
+
+        /* -------- Teachers -------- */
+Route::get('/teachers', [AdminTeacherController::class, 'index'])
+    ->name('teachers.index');
+
+Route::get('/teachers/create', [AdminTeacherController::class, 'create'])
+    ->name('teachers.create');
+
+Route::post('/teachers', [AdminTeacherController::class, 'store'])
+    ->name('teachers.store');
+
+Route::get('/teachers/{user}/edit', [AdminTeacherController::class, 'edit'])
+    ->name('teachers.edit');
+
+Route::put('/teachers/{user}', [AdminTeacherController::class, 'update'])
+    ->name('teachers.update');
+
+Route::post('/teachers/{user}/toggle', [AdminTeacherController::class, 'toggleStatus'])
+    ->name('teachers.toggle');
+
+Route::delete('/teachers/{user}', [AdminTeacherController::class, 'destroy'])
+    ->name('teachers.destroy');
+
 });
 
     });

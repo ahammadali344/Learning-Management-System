@@ -77,10 +77,13 @@
         </button>
         <div class="sidebar-submenu">
          <a href="{{ route('admin.users.students.index') }}">
-    Students
-</a>
+           Students
+        </a>
 
-            <a href="#">Teachers</a>
+          <a href="{{ route('admin.users.teachers.index') }}">
+             Teachers
+          </a>
+
         </div>
     </div>
 
