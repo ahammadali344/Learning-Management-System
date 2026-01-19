@@ -32,26 +32,34 @@ Route::middleware(['auth'])
         /* =======================
            Users Management
         ======================= */
-        Route::prefix('users')
-            ->name('users.')
-            ->group(function () {
+        Route::prefix('users')->name('users.')->group(function () {
 
-                /* -------- Students -------- */
-                Route::get('/students', [AdminStudentController::class, 'index'])
-                    ->name('students.index');
+    // List students
+    Route::get('/students', [AdminStudentController::class, 'index'])
+        ->name('students.index');
 
-                Route::get('/students/{user}/edit', [AdminStudentController::class, 'edit'])
-                    ->name('students.edit');
+    // Create student
+    Route::get('/students/create', [AdminStudentController::class, 'create'])
+        ->name('students.create');
 
-                Route::put('/students/{user}', [AdminStudentController::class, 'update'])
-                    ->name('students.update');
+    Route::post('/students', [AdminStudentController::class, 'store'])
+        ->name('students.store');
 
-                Route::post('/students/{user}/toggle', [AdminStudentController::class, 'toggleStatus'])
-                    ->name('students.toggle');
+    // Edit / update
+    Route::get('/students/{user}/edit', [AdminStudentController::class, 'edit'])
+        ->name('students.edit');
 
-                Route::delete('/students/{user}', [AdminStudentController::class, 'destroy'])
-                    ->name('students.destroy');
-            });
+    Route::put('/students/{user}', [AdminStudentController::class, 'update'])
+        ->name('students.update');
+
+    // Toggle status
+    Route::post('/students/{user}/toggle', [AdminStudentController::class, 'toggleStatus'])
+        ->name('students.toggle');
+
+    // Delete
+    Route::delete('/students/{user}', [AdminStudentController::class, 'destroy'])
+        ->name('students.destroy');
+});
 
     });
 /* Teacher Dashboard Route */

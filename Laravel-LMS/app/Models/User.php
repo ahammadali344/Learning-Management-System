@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
@@ -14,7 +14,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'status', // active | blocked
+        'status',
     ];
 
     protected $hidden = [
@@ -22,13 +22,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
     /* ======================
        Relationships
-    ======================= */
+    ====================== */
 
     public function roles()
     {
@@ -36,11 +32,26 @@ class User extends Authenticatable
     }
 
     /* ======================
-       Status Helper
-    ======================= */
+       Role Helpers (REQUIRED)
+    ====================== */
 
-    public function isActive(): bool
+    public function hasRole(string $role): bool
     {
-        return $this->status === 'active';
+        return $this->roles()->where('name', $role)->exists();
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->hasRole('admin');
+    }
+
+    public function isTeacher(): bool
+    {
+        return $this->hasRole('teacher');
+    }
+
+    public function isStudent(): bool
+    {
+        return $this->hasRole('student');
     }
 }

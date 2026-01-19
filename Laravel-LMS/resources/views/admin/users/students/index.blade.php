@@ -13,15 +13,23 @@
         <p>Manage registered students</p>
     </div>
 
-    <form method="GET" class="search-box">
-        <input type="text"
-               name="search"
-               placeholder="Search students..."
-               value="{{ request('search') }}">
-        <button type="submit">
-            <i class="bi bi-search"></i>
-        </button>
-    </form>
+    <div class="header-actions">
+        <form method="GET" class="search-box">
+            <input type="text"
+                   name="search"
+                   placeholder="Search students..."
+                   value="{{ request('search') }}">
+            <button type="submit">
+                <i class="bi bi-search"></i>
+            </button>
+        </form>
+
+        <a href="{{ route('admin.users.students.create') }}"
+           class="btn-primary">
+            <i class="bi bi-plus-lg"></i>
+            Add Student
+        </a>
+    </div>
 </div>
 
 <!-- Card -->
