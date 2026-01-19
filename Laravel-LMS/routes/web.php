@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminCourseController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\AdminStudentController;
 
 /* Login Routes */
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -10,16 +11,49 @@ Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 /* Admin Dashboard */
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
 
-    Route::get('/dashboard', [AdminDashboardController::class, 'index'])
-        ->name('dashboard');
+        /* =======================
+           Admin Dashboard
+        ======================= */
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])
+            ->name('dashboard');
 
-    Route::resource('courses', AdminCourseController::class);
 
-});
+        /* =======================
+           Courses
+        ======================= */
+        Route::resource('courses', AdminCourseController::class);
 
 
+        /* =======================
+           Users Management
+        ======================= */
+        Route::prefix('users')
+            ->name('users.')
+            ->group(function () {
+
+                /* -------- Students -------- */
+                Route::get('/students', [AdminStudentController::class, 'index'])
+                    ->name('students.index');
+
+                Route::get('/students/{user}/edit', [AdminStudentController::class, 'edit'])
+                    ->name('students.edit');
+
+                Route::put('/students/{user}', [AdminStudentController::class, 'update'])
+                    ->name('students.update');
+
+                Route::post('/students/{user}/toggle', [AdminStudentController::class, 'toggleStatus'])
+                    ->name('students.toggle');
+
+                Route::delete('/students/{user}', [AdminStudentController::class, 'destroy'])
+                    ->name('students.destroy');
+            });
+
+    });
 /* Teacher Dashboard Route */
 use App\Http\Controllers\Teacher\TeacherDashboardController;
 

@@ -76,7 +76,10 @@
             <i class="bi bi-chevron-down"></i>
         </button>
         <div class="sidebar-submenu">
-            <a href="#">Students</a>
+         <a href="{{ route('admin.users.students.index') }}">
+    Students
+</a>
+
             <a href="#">Teachers</a>
         </div>
     </div>

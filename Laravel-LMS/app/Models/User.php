@@ -14,7 +14,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'status',
+        'status', // active | blocked
     ];
 
     protected $hidden = [
@@ -35,42 +35,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'user_roles');
     }
 
-    public function enrollments()
-    {
-        return $this->hasMany(Enrollment::class);
-    }
-
-    public function submissions()
-    {
-        return $this->hasMany(Submission::class);
-    }
-
-    public function coursesTeaching()
-    {
-        return $this->hasMany(Course::class, 'teacher_id');
-    }
-
     /* ======================
-       Role Helpers (CRITICAL)
+       Status Helper
     ======================= */
 
-    public function hasRole(string $role): bool
+    public function isActive(): bool
     {
-        return $this->roles()->where('name', $role)->exists();
-    }
-
-    public function isAdmin(): bool
-    {
-        return $this->hasRole('admin');
-    }
-
-    public function isTeacher(): bool
-    {
-        return $this->hasRole('teacher');
-    }
-
-    public function isStudent(): bool
-    {
-        return $this->hasRole('student');
+        return $this->status === 'active';
     }
 }
