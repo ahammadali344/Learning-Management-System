@@ -10,6 +10,7 @@
 
   <!-- Custom CSS -->
    <link rel="stylesheet" href="{{ asset('assets/css/layout.css') }}">
+   
 
    @stack('styles')
 
@@ -116,10 +117,11 @@
     </div>
 
     <!-- Enrollments -->
-    <a href="#" class="sidebar-link">
-        <i class="bi bi-person-check"></i>
-        Enrollments
-    </a>
+      <a href="{{ route('admin.enrollments.index') }}"
+   class="sidebar-link {{ request()->routeIs('admin.enrollments.*') ? 'active' : '' }}">
+    <i class="bi bi-person-check"></i>
+    Enrollments
+</a>
 
     <!-- Reports -->
     <a href="#" class="sidebar-link">

@@ -1,99 +1,108 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\Auth\LoginController;
+
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminCourseController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Admin\AdminTeacherController;
+use App\Http\Controllers\Admin\AdminEnrollmentController;
 
+use App\Http\Controllers\Teacher\TeacherDashboardController;
 
-/* Login Routes */
+/*
+|--------------------------------------------------------------------------
+| Login Routes
+|--------------------------------------------------------------------------
+*/
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-/* Admin Dashboard */
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+*/
 Route::middleware(['auth'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
 
-        /* =======================
-           Admin Dashboard
-        ======================= */
+        /* Dashboard */
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])
             ->name('dashboard');
 
-
-        /* =======================
-           Courses
-        ======================= */
+        /* Courses */
         Route::resource('courses', AdminCourseController::class);
 
-
-        /* =======================
-           Users Management
-        ======================= */
+        /* Users */
         Route::prefix('users')->name('users.')->group(function () {
 
-    // List students
-    Route::get('/students', [AdminStudentController::class, 'index'])
-        ->name('students.index');
+            /* Students */
+            Route::get('/students', [AdminStudentController::class, 'index'])
+                ->name('students.index');
 
-    // Create student
-    Route::get('/students/create', [AdminStudentController::class, 'create'])
-        ->name('students.create');
+            Route::get('/students/create', [AdminStudentController::class, 'create'])
+                ->name('students.create');
 
-    Route::post('/students', [AdminStudentController::class, 'store'])
-        ->name('students.store');
+            Route::post('/students', [AdminStudentController::class, 'store'])
+                ->name('students.store');
 
-    // Edit / update
-    Route::get('/students/{user}/edit', [AdminStudentController::class, 'edit'])
-        ->name('students.edit');
+            Route::get('/students/{user}/edit', [AdminStudentController::class, 'edit'])
+                ->name('students.edit');
 
-    Route::put('/students/{user}', [AdminStudentController::class, 'update'])
-        ->name('students.update');
+            Route::put('/students/{user}', [AdminStudentController::class, 'update'])
+                ->name('students.update');
 
-    // Toggle status
-    Route::post('/students/{user}/toggle', [AdminStudentController::class, 'toggleStatus'])
-        ->name('students.toggle');
+            Route::post('/students/{user}/toggle', [AdminStudentController::class, 'toggleStatus'])
+                ->name('students.toggle');
 
-    // Delete
-    Route::delete('/students/{user}', [AdminStudentController::class, 'destroy'])
-        ->name('students.destroy');
+            Route::delete('/students/{user}', [AdminStudentController::class, 'destroy'])
+                ->name('students.destroy');
 
+            /* Teachers */
+            Route::get('/teachers', [AdminTeacherController::class, 'index'])
+                ->name('teachers.index');
 
+            Route::get('/teachers/create', [AdminTeacherController::class, 'create'])
+                ->name('teachers.create');
 
-        /* -------- Teachers -------- */
-Route::get('/teachers', [AdminTeacherController::class, 'index'])
-    ->name('teachers.index');
+            Route::post('/teachers', [AdminTeacherController::class, 'store'])
+                ->name('teachers.store');
 
-Route::get('/teachers/create', [AdminTeacherController::class, 'create'])
-    ->name('teachers.create');
+            Route::get('/teachers/{user}/edit', [AdminTeacherController::class, 'edit'])
+                ->name('teachers.edit');
 
-Route::post('/teachers', [AdminTeacherController::class, 'store'])
-    ->name('teachers.store');
+            Route::put('/teachers/{user}', [AdminTeacherController::class, 'update'])
+                ->name('teachers.update');
 
-Route::get('/teachers/{user}/edit', [AdminTeacherController::class, 'edit'])
-    ->name('teachers.edit');
+            Route::post('/teachers/{user}/toggle', [AdminTeacherController::class, 'toggleStatus'])
+                ->name('teachers.toggle');
 
-Route::put('/teachers/{user}', [AdminTeacherController::class, 'update'])
-    ->name('teachers.update');
+            Route::delete('/teachers/{user}', [AdminTeacherController::class, 'destroy'])
+                ->name('teachers.destroy');
+        });
 
-Route::post('/teachers/{user}/toggle', [AdminTeacherController::class, 'toggleStatus'])
-    ->name('teachers.toggle');
+        /* Enrollments (TOP LEVEL ADMIN) */
+        Route::get('/enrollments', [AdminEnrollmentController::class, 'index'])
+            ->name('enrollments.index');
+    });
 
-Route::delete('/teachers/{user}', [AdminTeacherController::class, 'destroy'])
-    ->name('teachers.destroy');
-
+/*
+|--------------------------------------------------------------------------
+| Teacher Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])->group(function () {
+    Route::get('/teacher/dashboard', [TeacherDashboardController::class, 'index'])
+        ->name('teacher.dashboard');
 });
 
-    });
-/* Teacher Dashboard Route */
-use App\Http\Controllers\Teacher\TeacherDashboardController;
 
-Route::get('/teacher/dashboard', [TeacherDashboardController::class, 'index'])
-    ->name('teacher.dashboard');
+
 
 /* Student Dashboard Route */
 Route::get('/student/dashboard',

@@ -1,0 +1,61 @@
+/* =====================
+   Filters
+===================== */
+
+body {
+    border: 6px solid red !important;
+}
+
+.enrollment-filters .form-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* =====================
+   Table Polish
+===================== */
+.table th {
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.table td {
+    white-space: nowrap;
+}
+
+/* =====================
+   Action Buttons
+===================== */
+.enrollment-actions .btn {
+    margin-left: 4px;
+}
+
+/* =====================
+   Mobile Table Layout
+===================== */
+@media (max-width: 768px) {
+
+    .table thead {
+        display: none;
+    }
+
+    .table tbody tr {
+        display: block;
+        border: 1px solid #eaeaea;
+        border-radius: 8px;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .table tbody td {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.4rem 0;
+    }
+
+    .table tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #555;
+    }
+}
