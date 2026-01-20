@@ -12,6 +12,9 @@ use App\Http\Controllers\Admin\AdminEnrollmentController;
 
 use App\Http\Controllers\Teacher\TeacherDashboardController;
 
+use App\Http\Controllers\Student\AvailableCourseController;
+use App\Http\Controllers\Student\EnrollmentController;
+
 /*
 |--------------------------------------------------------------------------
 | Login Routes
@@ -86,10 +89,23 @@ Route::middleware(['auth'])
                 ->name('teachers.destroy');
         });
 
-        /* Enrollments (TOP LEVEL ADMIN) */
-        Route::get('/enrollments', [AdminEnrollmentController::class, 'index'])
-            ->name('enrollments.index');
+        /* Enrollments */
+        Route::prefix('enrollments')
+            ->name('enrollments.')
+            ->group(function () {
+
+                Route::get('/', [AdminEnrollmentController::class, 'index'])
+                    ->name('index');
+
+                Route::post('{enrollment}/approve', [AdminEnrollmentController::class, 'approve'])
+                    ->name('approve');
+
+                Route::post('{enrollment}/reject', [AdminEnrollmentController::class, 'reject'])
+                    ->name('reject');
+            });
+
     });
+
 
 /*
 |--------------------------------------------------------------------------
@@ -110,8 +126,7 @@ Route::get('/student/dashboard',
 )->name('student.dashboard');
 
 /*Student Course Controller */
-use App\Http\Controllers\Student\AvailableCourseController;
-use App\Http\Controllers\Student\EnrollmentController;
+
 
 Route::middleware(['auth'])->prefix('student')->name('student.')->group(function () {
     Route::get('/available-courses', [AvailableCourseController::class, 'index'])
@@ -119,4 +134,6 @@ Route::middleware(['auth'])->prefix('student')->name('student.')->group(function
 
     Route::post('/enroll/{course}', [EnrollmentController::class, 'store'])
         ->name('enroll');
+
+        
 });

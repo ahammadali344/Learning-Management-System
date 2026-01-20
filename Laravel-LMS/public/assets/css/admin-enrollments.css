@@ -1,102 +1,212 @@
-/* ===== Header ===== */
+/* =========================
+   Page Header
+========================= */
 .page-header {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:24px;
-}
-.page-header h1 { font-size:28px; font-weight:700; }
-.page-header p { color:#6b7280; }
-
-/* ===== Search ===== */
-.search-box {
-    display:flex;
-    align-items:center;
-    background:#fff;
-    border-radius:999px;
-    padding:6px 12px;
-    box-shadow:0 8px 20px rgba(0,0,0,.05);
-}
-.search-box input {
-    border:none;
-    outline:none;
-    padding:6px 10px;
-}
-.search-box button {
-    background:none;
-    border:none;
-    cursor:pointer;
+    margin-bottom: 24px;
 }
 
-/* ===== Card ===== */
+.page-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.page-header p {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* =========================
+   Card Wrapper
+========================= */
 .card {
-    background:#fff;
-    border-radius:18px;
-    box-shadow:0 20px 40px rgba(0,0,0,.08);
-    overflow-x:auto;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
 }
 
-/* ===== Table ===== */
-.enroll-table {
-    width:100%;
-    border-collapse:collapse;
+/* =========================
+   Table
+========================= */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
 }
-.enroll-table th {
-    background:#f9fafb;
-    color:#6b7280;
-    padding:16px;
-    text-align:left;
-}
-.enroll-table td {
-    padding:16px;
-    border-top:1px solid #f1f5f9;
-}
-.enroll-table tr:hover { background:#f9fafb; }
 
-/* ===== Status ===== */
+.admin-table thead {
+    background: #f9fafb;
+}
+
+.admin-table th {
+    text-align: left;
+    padding: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-table td {
+    padding: 16px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 14px;
+    color: #111827;
+}
+
+.admin-table tr:hover {
+    background: #f9fafb;
+}
+
+/* =========================
+   Status Badges
+========================= */
 .status {
-    padding:6px 14px;
-    border-radius:999px;
-    font-size:13px;
-    font-weight:600;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
 }
-.status.pending { background:#fef3c7; color:#92400e; }
-.status.approved { background:#dcfce7; color:#166534; }
-.status.rejected { background:#fee2e2; color:#991b1b; }
 
-/* ===== Actions ===== */
-.actions {
-    display:inline-flex;
-    gap:10px;
+/* Pending */
+.status.pending {
+    background: #fff7ed;
+    color: #9a3412;
 }
-.icon-btn {
-    width:38px;
-    height:38px;
-    border-radius:12px;
-    border:none;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 6px 14px rgba(0,0,0,.08);
-}
-.icon-btn.approve { background:#dcfce7; color:#166534; }
-.icon-btn.reject { background:#fee2e2; color:#991b1b; }
-.icon-btn.danger { background:#f1f5f9; color:#374151; }
-.icon-btn:hover { transform:translateY(-2px); }
 
-/* ===== Responsive ===== */
-@media (max-width:768px) {
-    .enroll-table thead { display:none; }
-    .enroll-table tr { display:block; margin-bottom:16px; }
-    .enroll-table td {
-        display:flex;
-        justify-content:space-between;
-        padding:12px;
+/* Approved */
+.status.approved {
+    background: #e7f9ef;
+    color: #0f766e;
+}
+
+/* Rejected */
+.status.rejected {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* =========================
+   Empty State
+========================= */
+.empty {
+    text-align: center;
+    padding: 48px;
+    color: #9ca3af;
+    font-size: 15px;
+}
+
+/* =========================
+   Pagination
+========================= */
+.pagination-wrap {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* =========================
+   Responsive (Mobile)
+========================= */
+@media (max-width: 768px) {
+
+    .admin-table {
+        min-width: 100%;
     }
-    .enroll-table td::before {
+
+    .admin-table thead {
+        display: none;
+    }
+
+    .admin-table tr {
+        display: block;
+        border-bottom: 1px solid #e5e7eb;
+        margin-bottom: 12px;
+        padding: 12px;
+    }
+
+    .admin-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border: none;
+        font-size: 14px;
+    }
+
+    .admin-table td::before {
         content: attr(data-label);
-        font-weight:600;
-        color:#6b7280;
+        font-weight: 600;
+        color: #6b7280;
+        font-size: 13px;
     }
+
+    .pagination-wrap {
+        justify-content: center;
+    }
+}
+
+
+
+/* Search box */
+.search-box {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 999px;
+    padding: 6px 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.06);
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    padding: 6px 10px;
+    width: 220px;
+}
+
+.search-box button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Action buttons */
+.btn-action {
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-action.approve {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.btn-action.reject {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.btn-action:hover {
+    opacity: 0.9;
+}
+
+.muted {
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+.inline {
+    display: inline;
 }

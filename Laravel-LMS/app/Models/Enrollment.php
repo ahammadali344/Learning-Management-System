@@ -8,6 +8,12 @@ class Enrollment extends Model
 {
     protected $table = 'enrollments';
 
+    /**
+     * IMPORTANT
+     * Your enrollments table DOES NOT have created_at / updated_at
+     */
+    public $timestamps = false;
+
     protected $fillable = [
         'student_id',
         'course_id',
@@ -34,18 +40,5 @@ class Enrollment extends Model
     public function course()
     {
         return $this->belongsTo(Course::class);
-    }
-
-    /* =====================
-       SCOPES (FOR CLEAN CODE)
-    ===================== */
-    public function scopePending($query)
-    {
-        return $query->where('status', self::STATUS_PENDING);
-    }
-
-    public function scopeApproved($query)
-    {
-        return $query->where('status', self::STATUS_APPROVED);
     }
 }

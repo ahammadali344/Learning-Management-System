@@ -4,26 +4,44 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Enrollment;
-use App\Models\Course;
 use Illuminate\Http\Request;
 
 class AdminEnrollmentController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Enrollment::with(['student', 'course']);
+        $enrollments = Enrollment::with(['student', 'course'])
+            ->when($request->search, function ($q) use ($request) {
+                $q->whereHas('student', function ($s) use ($request) {
+                    $s->where('name', 'like', "%{$request->search}%")
+                      ->orWhere('email', 'like', "%{$request->search}%");
+                })
+                ->orWhereHas('course', function ($c) use ($request) {
+                    $c->where('title', 'like', "%{$request->search}%");
+                });
+            })
+            ->orderByDesc('enrolled_at')
+            ->paginate(10)
+            ->withQueryString();
 
-        if ($request->filled('course_id')) {
-            $query->where('course_id', $request->course_id);
-        }
+        return view('admin.enrollments.index', compact('enrollments'));
+    }
 
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
-
-        return view('admin.enrollments.index', [
-            'enrollments' => $query->latest()->paginate(10)->withQueryString(),
-            'courses' => Course::all(),
+    public function approve(Enrollment $enrollment)
+    {
+        $enrollment->update([
+            'status' => Enrollment::STATUS_APPROVED,
         ]);
+
+        return back()->with('success', 'Enrollment approved');
+    }
+
+    public function reject(Enrollment $enrollment)
+    {
+        $enrollment->update([
+            'status' => Enrollment::STATUS_REJECTED,
+        ]);
+
+        return back()->with('success', 'Enrollment rejected');
     }
 }

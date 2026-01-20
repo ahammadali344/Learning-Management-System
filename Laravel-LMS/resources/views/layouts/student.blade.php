@@ -10,6 +10,9 @@
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="{{ asset('assets/css/layout.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+  @stack('styles')
+  
 </head>
 <body>
 
